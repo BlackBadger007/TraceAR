@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131c">
+  <title>TraceAR — AR Drawing Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="TraceAR home"><span class="brand-mark">✦</span> Trace<span>AR</span></a>
+    <div class="top-actions">
+      <span class="live-dot"></span><span class="status" id="status">Camera not started</span>
+      <button class="btn btn-quiet" id="helpBtn">How to use</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="stage-column">
+      <div class="stage-heading">
+        <div><p class="eyebrow">YOUR CANVAS</p><h1>Draw what you <em>see.</em></h1></div>
+        <div class="stage-actions">
+          <button class="btn btn-quiet" id="flipBtn" title="Flip reference horizontally">⇋ Mirror</button>
+          <button class="btn btn-quiet" id="fullscreenBtn">⛶ Fullscreen</button>
+        </div>
+      </div>
+
+      <div class="stage" id="stage">
+        <video id="camera" autoplay playsinline muted></video>
+        <div class="camera-placeholder" id="placeholder">
+          <div class="camera-icon">◉</div>
+          <h2>Your camera view goes here</h2>
+          <p>Start your camera, then place your phone or laptop above your drawing surface.</p>
+          <button class="btn btn-primary" id="startBtn">Start camera</button>
+        </div>
+        <div class="reference-wrap" id="referenceWrap">
+          <img id="reference" alt="Reference image to trace">
+        </div>
+        <div class="stage-hint" id="stageHint">Upload a reference image to begin</div>
+        <div class="stage-controls">
+          <button class="round-btn" id="smallerBtn" title="Make reference smaller">−</button>
+          <button class="round-btn" id="biggerBtn" title="Make reference bigger">+</button>
+          <button class="round-btn" id="centerBtn" title="Center reference">⌖</button>
+        </div>
+      </div>
+
+      <div class="below-stage">
+        <div class="tip"><span>✧</span><div><b>Tracing tip</b><small>Lower the image opacity until your paper and reference are both easy to see.</small></div></div>
+        <div class="keyboard-note">Drag image to move · Use + / − to resize</div>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <div class="panel-title"><div><p class="eyebrow">CONTROL DESK</p><h2>Studio tools</h2></div><span class="panel-icon">✎</span></div>
+
+      <section class="tool-section">
+        <div class="section-head"><h3>01 <span>Reference image</span></h3><span class="mini-label">IMAGE</span></div>
+        <label class="upload-box" for="imageInput">
+          <span class="upload-icon">＋</span><span><b>Upload an image</b><small>PNG, JPG, WEBP · from your device</small></span>
+          <input id="imageInput" type="file" accept="image/*">
+        </label>
+        <div class="file-row" id="fileRow" hidden><span id="fileName">No image selected</span><button id="removeImage" class="text-btn">Remove</button></div>
+      </section>
+
+      <section class="tool-section">
+        <div class="section-head"><h3>02 <span>Image adjustments</span></h3></div>
+        <div class="control"><div class="control-label"><label for="opacity">Opacity</label><output id="opacityValue">45%</output></div><input id="opacity" type="range" min="5" max="100" value="45"></div>
+        <div class="control"><div class="control-label"><label for="size">Image size</label><output id="sizeValue">100%</output></div><input id="size" type="range" min="25" max="200" value="100"></div>
+        <div class="control"><div class="control-label"><label for="rotation">Rotation</label><output id="rotationValue">0°</output></div><input id="rotation" type="range" min="-180" max="180" value="0"></div>
+        <div class="two-buttons"><button class="btn btn-secondary" id="rotateLeft">↶ Rotate</button><button class="btn btn-secondary" id="resetBtn">Reset</button></div>
+      </section>
+
+      <section class="tool-section">
+        <div class="section-head"><h3>03 <span>Drawing aids</span></h3></div>
+        <label class="toggle-row"><span><b>Grid overlay</b><small>Helps with proportions</small></span><input type="checkbox" id="gridToggle"><i></i></label>
+        <label class="toggle-row"><span><b>Mirror image</b><small>Flip reference left to right</small></span><input type="checkbox" id="mirrorToggle"><i></i></label>
+        <label class="toggle-row"><span><b>Freeze camera</b><small>Pause the live camera view</small></span><input type="checkbox" id="freezeToggle"><i></i></label>
+      </section>
+
+      <section class="tool-section camera-section">
+        <div class="section-head"><h3>04 <span>Camera</span></h3></div>
+        <button class="btn btn-secondary full" id="switchCamera">⇄ Switch camera</button>
+        <button class="btn btn-danger-quiet full" id="stopBtn">Stop camera</button>
+        <p class="privacy-note">Your camera and image stay in this browser. Nothing is uploaded.</p>
+      </section>
+      <footer class="panel-footer">TRACEAR <span>·</span> MAKE ART YOUR WAY</footer>
+    </aside>
+  </main>
+
+  <div class="modal-backdrop" id="helpModal" hidden>
+    <div class="modal">
+      <button class="modal-close" id="closeHelp" aria-label="Close">×</button>
+      <p class="eyebrow">QUICK START</p><h2>How to use TraceAR</h2>
+      <ol>
+        <li>Place your device above your paper or drawing surface.</li>
+        <li>Press <b>Start camera</b> and allow camera permission.</li>
+        <li>Upload a reference image from your device.</li>
+        <li>Drag the image over your paper, then adjust size, rotation and opacity.</li>
+        <li>Trace the visible guide with a pencil or pen.</li>
+      </ol>
+      <p class="modal-note">This is a camera-overlay tracing tool, not full spatial AR. For camera access, open the site on HTTPS or localhost.</p>
+      <button class="btn btn-primary full" id="gotIt">Got it</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
